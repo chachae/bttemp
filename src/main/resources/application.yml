@@ -1,0 +1,33 @@
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+
+  thymeleaf:
+    mode: HTML
+    cache: false
+    encoding: UTF-8
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sco?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8"
+    username: root
+    password: 123456
+
+  jackson:
+    time-zone: Asia/Chongqing
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis:
+  type-aliases-package: com.chachae.entity
+  mapper-locations: classpath:mappers/*Mapper.xml
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+
