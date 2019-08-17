@@ -1,8 +1,8 @@
-package com.chachae.service.impl;
+package com.chachae.api.service.impl;
 
-import com.chachae.dao.LoginDao;
-import com.chachae.entity.User;
-import com.chachae.service.LoginService;
+import com.chachae.api.dao.LoginDao;
+import com.chachae.api.entity.User;
+import com.chachae.api.service.LoginService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

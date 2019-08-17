@@ -1,7 +1,7 @@
-package com.chachae.config;
+package com.chachae.api.config;
 
-import com.chachae.entity.User;
-import com.chachae.service.LoginService;
+import com.chachae.api.entity.User;
+import com.chachae.api.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -13,7 +13,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import javax.sound.midi.Soundbank;
 
 /**
  * @author chachae
@@ -38,16 +37,15 @@ public class MyShiroRealm extends AuthorizingRealm {
   /**
    * 认证方法
    *
-   * @param authenticationToken 用户提交的身份信息（账号、密码）等的凭据
+   * @param token 用户提交的身份信息（账号、密码）等的凭据
    * @return Realm验证成功的身份信息
    * @throws AuthenticationException 抛出验证失败的异常
    */
   @Override
-  protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
+  protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
       throws AuthenticationException {
     // 获取用户输入的账号
-    String username = (String) authenticationToken.getPrincipal();
-    log.info("--------------"+username);
+    String username = (String) token.getPrincipal();
     User user = loginService.getUserByName(username);
     if (StringUtils.isEmpty(user)) {
       return null;

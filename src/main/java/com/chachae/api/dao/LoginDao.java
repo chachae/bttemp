@@ -1,6 +1,6 @@
-package com.chachae.dao;
+package com.chachae.api.dao;
 
-import com.chachae.entity.User;
+import com.chachae.api.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

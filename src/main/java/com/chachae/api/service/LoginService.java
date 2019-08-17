@@ -1,6 +1,6 @@
-package com.chachae.service;
+package com.chachae.api.service;
 
-import com.chachae.entity.User;
+import com.chachae.api.entity.User;
 
 /**
  * @author chachae
