@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
+ * shiro配置
+ *
  * @author chachae
  * @date 2019/8/16
  */

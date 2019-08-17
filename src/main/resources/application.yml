@@ -1,29 +1,44 @@
+#服务器配置
 server:
   port: 8081
   tomcat:
     uri-encoding: UTF-8
 
+#spring配置
 spring:
   http:
     encoding:
       charset: UTF-8
 
+  #thymleaf模板引擎配置
   thymeleaf:
     mode: HTML
     cache: false
     encoding: UTF-8
+    suffix: .html
 
+  #数据源配置
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sco?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8"
     username: root
     password: 123456
+    hikari:
+      pool-name: DatebookHikariCP
+      auto-commit: true
+      minimum-idle: 3
+      maximum-pool-size: 20
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: select 1
 
+  #jackson配置
   jackson:
     time-zone: Asia/Chongqing
     date-format: yyyy-MM-dd HH:mm:ss
 
+#Mybatis配置
 mybatis:
   type-aliases-package: com.chachae.api.entity
   mapper-locations: classpath:mappers/*Mapper.xml
@@ -31,5 +46,13 @@ mybatis:
     cache-enabled: true
     map-underscore-to-camel-case: true
 
+# pageHelper配置
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
+
+#日志配置
 logging:
   config: classpath:logback-dev.xml
