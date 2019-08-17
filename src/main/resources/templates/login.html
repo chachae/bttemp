@@ -4,26 +4,59 @@
     <meta charset="UTF-8">
     <title>登录界面</title>
 </head>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
 <body>
 <div class="login-content">
     <div class="login-title">
         <h1>登录</h1>
     </div>
     <div class="login">
-        <form method="post">
-            <div>
-                <div>
+        <table>
+            <tr>
+                <td>
+                    <label for="username">用户名</label>
+                </td>
+                <td>
                     <input id="username" type="text" name="username" placeholder="用户名"/>
-                </div>
-            </div>
-            <div>
-                <div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">密码</label>
+                </td>
+                <td>
                     <input id="password" type="password" name="password" placeholder="密码"/>
-                </div>
-            </div>
-            <input id="submit" type="submit" value="登录">
-        </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="submit" type="button" onclick="login()" value="登录">
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
+<script>
+    //登陆
+    //登录，目前只检测验证码
+    function login() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.ajax({
+            data: {"username": username, "password": password},
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                if (data.ret === true) {
+                    window.parent.location.reload();
+                    location.href = "/main";
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+        return false;
+    }
+</script>
 </body>
 </html>
