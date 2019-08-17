@@ -22,6 +22,7 @@
         <result column="note" jdbcType="INTEGER" property="note"/>
         <association property="user" resultMap="userMap"/>
     </resultMap>
+
     <!-- 通过UUID查询该成员的全部信息 -->
     <select id="selectByUserUuid" parameterType="string" resultMap="BaseResultMap">
         SELECT t_user_info.*,
@@ -31,13 +32,15 @@
         FROM t_user_info
         INNER JOIN t_user ON t_user.userUUID = t_user_info.userUUID
         WHERE t_user_info.userUUID = #{userUuid}
-        ORDER BY CONVERT(t_user_info.name USING GBK) COLLATE gbk_chinese_ci ASC
+        ORDER BY CONVERT(t_user_info.name USING GBK) COLLATE gbk_chinese_ci
     </select>
+
     <!-- 增加 -->
     <insert id="insert" parameterType="UserInfo">
         INSERT INTO t_user_info SET userUUID = #{userUuid,jdbcType=VARCHAR},userInfoUUID =
         #{userInfoUuid,jdbcType=VARCHAR},note = #{note,jdbcType=INTEGER}
     </insert>
+
     <!-- 查询成员的全部信息 -->
     <select id="selectAllList" parameterType="integer" resultMap="BaseResultMap">
         SELECT t.*,
@@ -47,8 +50,9 @@
         FROM t_user_info t
                  INNER JOIN
              t_user tu ON t.userUUID = tu.userUUID
-        ORDER BY CONVERT(t.NAME USING GBK) COLLATE gbk_chinese_ci ASC
+        ORDER BY CONVERT(t.NAME USING GBK) COLLATE gbk_chinese_ci
     </select>
+
     <!-- 修改成员信息 -->
     <update id="update" parameterType="UserInfo">
         update t_user_info
@@ -86,9 +90,13 @@
         </set>
         where userUUID = #{userUuid}
     </update>
+
+    <!-- 删除 -->
     <delete id="delete" parameterType="string">
         DELETE FROM t_user_info WHERE userUUID = #{userUuid}
     </delete>
+
+    <!-- 通过姓名查询详细信息 -->
     <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
         SELECT t_user_info.*,
         t_user.stuID,
@@ -97,6 +105,6 @@
         FROM t_user_info
         INNER JOIN t_user ON t_user.userUUID = t_user_info.userUUID
         WHERE t_user_info.name = #{name,jdbcType=VARCHAR}
-        ORDER BY CONVERT(t_user_info.name USING GBK) COLLATE gbk_chinese_ci ASC
+        ORDER BY CONVERT(t_user_info.name USING GBK) COLLATE gbk_chinese_ci
     </select>
 </mapper>

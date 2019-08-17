@@ -15,6 +15,8 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 
 /**
+ * shiro自定义realm
+ *
  * @author chachae
  * @date 2019/8/16
  */
