@@ -25,9 +25,11 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
 
 mybatis:
-  type-aliases-package: com.chachae.entity
+  type-aliases-package: com.chachae.api.entity
   mapper-locations: classpath:mappers/*Mapper.xml
   configuration:
     cache-enabled: true
     map-underscore-to-camel-case: true
 
+logging:
+  config: classpath:logback-dev.xml
