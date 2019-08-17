@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chachae.api.dao.UserDao">
+    <resultMap id="UserResultMap" type="User">
+        <id column="userUUID" jdbcType="VARCHAR" property="userUuid"/>
+        <result column="stuID" jdbcType="VARCHAR" property="stuId"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="role" jdbcType="INTEGER" property="role"/>
+    </resultMap>
+    <!-- 成员登录信息列表 -->
+    <select id="selectList" resultMap="UserResultMap">
+        SELECT *
+        FROM t_user
+    </select>
+
+
+    <!-- 成员增加 -->
+    <insert id="insert" parameterType="User">
+        INSERT INTO t_user SET userUUID = #{userUuid,jdbcType=VARCHAR},STUID = #{stuId,jdbcType=VARCHAR},PASSWORD =
+        #{password,jdbcType=VARCHAR},ROLE =#{role,jdbcType=INTEGER}
+    </insert>
+
+
+    <!-- 删除成员 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM t_user WHERE t_user.userUUID = #{userUuid,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 通过成员ID（UUID）修改成员信息 -->
+    <update id="update" parameterType="User">
+        update t_user
+        <set>
+            <if test="stuId != null and stuId != ''">
+                stuID = #{stuId},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+        </set>
+        where userUUID = #{userUuid}
+    </update>
+</mapper>

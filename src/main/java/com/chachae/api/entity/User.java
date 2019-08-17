@@ -1,4 +1,4 @@
-package com.chachae.entity;
+package com.chachae.api.entity;
 
 import lombok.*;
 import lombok.experimental.Accessors;

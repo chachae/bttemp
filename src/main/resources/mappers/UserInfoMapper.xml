@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chachae.api.dao.UserInfoDao">
+    <resultMap id="userMap" type="User">
+        <result column="userUUID" jdbcType="VARCHAR" property="userUuid"/>
+        <result column="stuID" jdbcType="VARCHAR" property="stuId"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="role" jdbcType="INTEGER" property="role"/>
+    </resultMap>
+    <resultMap id="BaseResultMap" type="UserInfo">
+        <id column="userInfoUUID" jdbcType="VARCHAR" property="userInfoUuid"/>
+        <result column="userUUID" jdbcType="VARCHAR" property="userUuid"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="edu_password" jdbcType="VARCHAR" property="eduPassword"/>
+        <result column="orientation" jdbcType="INTEGER" property="orientation"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="info" jdbcType="VARCHAR" property="info"/>
+        <result column="speciality" jdbcType="VARCHAR" property="speciality"/>
+        <result column="note" jdbcType="INTEGER" property="note"/>
+        <association property="user" resultMap="userMap"/>
+    </resultMap>
+    <!-- 通过UUID查询该成员的全部信息 -->
+    <select id="selectByUserUuid" parameterType="string" resultMap="BaseResultMap">
+        SELECT t_user_info.*,
+        t_user.stuID,
+        role,
+        password
+        FROM t_user_info
+        INNER JOIN t_user ON t_user.userUUID = t_user_info.userUUID
+        WHERE t_user_info.userUUID = #{userUuid}
+        ORDER BY CONVERT(t_user_info.name USING GBK) COLLATE gbk_chinese_ci ASC
+    </select>
+    <!-- 增加 -->
+    <insert id="insert" parameterType="UserInfo">
+        INSERT INTO t_user_info SET userUUID = #{userUuid,jdbcType=VARCHAR},userInfoUUID =
+        #{userInfoUuid,jdbcType=VARCHAR},note = #{note,jdbcType=INTEGER}
+    </insert>
+    <!-- 查询成员的全部信息 -->
+    <select id="selectAllList" parameterType="integer" resultMap="BaseResultMap">
+        SELECT t.*,
+               tu.stuID,
+               PASSWORD,
+               role
+        FROM t_user_info t
+                 INNER JOIN
+             t_user tu ON t.userUUID = tu.userUUID
+        ORDER BY CONVERT(t.NAME USING GBK) COLLATE gbk_chinese_ci ASC
+    </select>
+    <!-- 修改成员信息 -->
+    <update id="update" parameterType="UserInfo">
+        update t_user_info
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="eduPassword != null">
+                edu_password = #{eduPassword},
+            </if>
+            <if test="orientation != null">
+                orientation = #{orientation},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="icon != null">
+                icon = #{icon},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="info != null">
+                info = #{info},
+            </if>
+            <if test="speciality != null">
+                speciality = #{speciality},
+            </if>
+            <if test="note != null">
+                note = #{note},
+            </if>
+        </set>
+        where userUUID = #{userUuid}
+    </update>
+    <delete id="delete" parameterType="string">
+        DELETE FROM t_user_info WHERE userUUID = #{userUuid}
+    </delete>
+    <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+        SELECT t_user_info.*,
+        t_user.stuID,
+        role,
+        password
+        FROM t_user_info
+        INNER JOIN t_user ON t_user.userUUID = t_user_info.userUUID
+        WHERE t_user_info.name = #{name,jdbcType=VARCHAR}
+        ORDER BY CONVERT(t_user_info.name USING GBK) COLLATE gbk_chinese_ci ASC
+    </select>
+</mapper>
