@@ -1,21 +1,32 @@
 package com.chachae.api.controller;
 
 import com.chachae.api.common.JsonData;
+import com.chachae.api.entity.UserInfo;
+import com.chachae.api.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 /**
+ * 登录控制层
+ *
  * @author chachae
  * @date 2019/8/16
  */
+@Slf4j
 @Controller
 public class LoginController {
+
+  @Resource private UserService userService;
 
   @ResponseBody
   @PostMapping("/login")
@@ -23,7 +34,7 @@ public class LoginController {
     // 从SecurityUtils里边创建一个 subject
     Subject subject = SecurityUtils.getSubject();
     // 在认证提交前准备 token（令牌）
-    UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+    UsernamePasswordToken token = new UsernamePasswordToken(username, password,false);
     // 执行认证登陆
     try {
       subject.login(token);
@@ -35,7 +46,8 @@ public class LoginController {
       return JsonData.fail("用户名或密码不正确");
     }
     if (subject.isAuthenticated()) {
-      return JsonData.success(1, "登录成功");
+      // 验证成功，把token给前端
+    return JsonData.success(token, "登录成功");
     } else {
       return JsonData.fail("登录失败");
     }

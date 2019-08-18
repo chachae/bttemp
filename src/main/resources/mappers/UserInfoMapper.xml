@@ -107,4 +107,16 @@
         WHERE t_user_info.name = #{name,jdbcType=VARCHAR}
         ORDER BY CONVERT(t_user_info.name USING GBK) COLLATE gbk_chinese_ci
     </select>
+
+    <!-- 通过姓名查询详细信息 -->
+    <select id="selectByUserUuid" parameterType="string" resultMap="BaseResultMap">
+        SELECT t_user_info.*,
+        t_user.stuID,
+        role,
+        password
+        FROM t_user_info
+        INNER JOIN t_user ON t_user.userUUID = t_user_info.userUUID
+        WHERE t_user_info.userUUID = #{userUuid,jdbcType=VARCHAR}
+        ORDER BY CONVERT(t_user_info.name USING GBK) COLLATE gbk_chinese_ci
+    </select>
 </mapper>

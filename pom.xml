@@ -93,11 +93,17 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- webjars -->
+        <!-- webjars - jquery -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.4.1</version>
+        </dependency>
+        <!-- webjars - element -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>element-ui</artifactId>
+            <version>2.11.1</version>
         </dependency>
         <!-- mapstruct实体映射框架 -->
         <dependency>
