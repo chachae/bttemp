@@ -20,7 +20,7 @@ public class LoginServiceImpl implements LoginService {
   public User getUserByName(String username) {
     /* 如果验证用户名为邮箱地址，调用<邮箱 - 密码>验证接口
     如果验证用户名为手机号码，调用<手机 - 密码>验证接口
-    其他为学号，调用<学号 - 密码>验证接口，统一返回成员的UUID*/
+    其他为学号，调用<学号 - 密码>验证接口*/
     if (checkPhone(username)) {
       return loginDao.selectByPhone(username);
     } else if (checkEmail(username)) {

@@ -1,11 +1,13 @@
 package com.chachae.api.controller;
+import	java.security.Principal;
 
-import com.chachae.api.dao.UserDao;
+import com.chachae.api.entity.UserInfo;
+import com.chachae.api.service.UserInfoService;
 import com.chachae.api.service.UserService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import jdk.nashorn.internal.parser.Token;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -17,10 +19,17 @@ import javax.annotation.Resource;
 public class UserInfoController {
 
   @Resource private UserService userService;
+@Resource private UserInfoService userInfoService;
+
 
   @GetMapping("/list")
   public String list() {
     return "";
+  }
+
+  @PostMapping("/self")
+  public void selfInfo(UsernamePasswordToken token){
+
   }
 
   @DeleteMapping("/delete/{userUuid}")

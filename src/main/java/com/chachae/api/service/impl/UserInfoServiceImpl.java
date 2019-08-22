@@ -46,4 +46,9 @@ public class UserInfoServiceImpl implements UserInfoService {
   public List<UserInfo> getByName(String name) {
     return userInfoDao.selectByName(name);
   }
+
+  @Override
+  public UserInfo getByUserUuid(String userUuid) {
+    return userInfoDao.selectByUserUuid(userUuid);
+  }
 }
