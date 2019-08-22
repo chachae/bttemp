@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
+ * shiro异常处理
+ *
  * @author chachae
  * @date 2019/8/22
  */

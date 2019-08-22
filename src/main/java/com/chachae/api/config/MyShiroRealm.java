@@ -36,7 +36,7 @@ public class MyShiroRealm extends AuthorizingRealm {
    */
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-    System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
+    log.info("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
     SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
     // 获取登录用户名
     String name = (String) principals.getPrimaryPrincipal();
@@ -45,6 +45,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     // 添加角色和权限
     Integer role = user.getRole();
     authorizationInfo.addRole(String.valueOf(role));
+    // foreach循环，读取该用户的角色对应的权限信息，并添加到authorizationInfo中
     for (Permission permission : permissionService.getByRoleId(role)) {
       log.info("{}", permission.getName());
       authorizationInfo.addStringPermission(permission.getPermission());
@@ -62,6 +63,7 @@ public class MyShiroRealm extends AuthorizingRealm {
   @Override
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
       throws AuthenticationException {
+    log.info("身份认证-->MyShiroRealm.doGetAuthenticationInfo()");
     // 获取用户输入的账号
     String username = (String) token.getPrincipal();
     User user = loginService.getUserByName(username);

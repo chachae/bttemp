@@ -60,7 +60,7 @@ public interface UserInfoService {
    * 通过姓名获取成员登录信息列表
    *
    * @param userUuid 成员uuid
-   * @return该成员的详细信息
+   * @return 该成员的详细信息
    */
   UserInfo getByUserUuid(String userUuid);
 }

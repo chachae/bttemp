@@ -1,7 +1,5 @@
 package com.chachae.api.common;
 
-import com.chachae.api.exception.ParamException;
-import com.chachae.api.exception.PermissionException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -12,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * shiro的统一异常处理
+ *
  * @author chachae
  * @date 2019/8/22
  */
@@ -34,6 +34,7 @@ public class ShiroExceptionResolver implements HandlerExceptionResolver {
       // 将捕获到的定义异常信息放入JsonData的fail方法中，通过ModelAndView返回给前端
       JsonData result = JsonData.fail(ex.getMessage());
       mv = new ModelAndView("jsonView", result.toMap());
+      // 跳转到403页面
       mv.setViewName("403");
     } else if (ex instanceof UnauthenticatedException) {
       // 打印错误信息

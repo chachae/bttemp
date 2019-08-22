@@ -10,10 +10,8 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * shiro配置
@@ -87,6 +85,11 @@ public class ShiroConfig {
     return authorizationAttributeSourceAdvisor;
   }
 
+  /**
+   * shiro统一异常处理
+   *
+   * @return ShiroExceptionResolver
+   */
   @Bean(name = "exceptionHandler")
   public HandlerExceptionResolver handlerExceptionResolver() {
     return new ShiroExceptionResolver();
