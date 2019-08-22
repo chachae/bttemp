@@ -16,12 +16,12 @@ import org.springframework.web.filter.CorsFilter;
  */
 @Configuration
 public class CorsConfig {
-  private static final Logger LOG = LoggerFactory.getLogger(CorsConfig.class);
+  private static final Logger log = LoggerFactory.getLogger(CorsConfig.class);
 
   private CorsConfiguration buildConfig() {
     CorsConfiguration corsConfiguration = new CorsConfiguration();
-    if (LOG.isInfoEnabled()) {
-      LOG.info("初始化 CORSConfiguration 配置");
+    if (log.isInfoEnabled()) {
+      log.info("初始化 CORSConfiguration 配置");
       corsConfiguration.addAllowedOrigin("*");
       corsConfiguration.addAllowedHeader("*");
       corsConfiguration.addAllowedMethod("*");

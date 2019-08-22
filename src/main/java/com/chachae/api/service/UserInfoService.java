@@ -38,7 +38,7 @@ public interface UserInfoService {
    *
    * @return 成员详细信息列表
    */
-  List getList();
+  List<UserInfo> getList();
 
   /**
    * 添加成员登录信息
@@ -60,7 +60,7 @@ public interface UserInfoService {
    * 通过姓名获取成员登录信息列表
    *
    * @param userUuid 成员uuid
-   * @return该成员的详细信息
+   * @return 该成员的详细信息
    */
   UserInfo getByUserUuid(String userUuid);
 }

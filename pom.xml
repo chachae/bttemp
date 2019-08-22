@@ -32,6 +32,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
         <!-- SpringBoo热部署工具 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -113,7 +117,7 @@
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
+            <artifactId>mapstruct-processor</artifactId>
             <version>1.3.0.Final</version>
         </dependency>
         <!-- aop增强 -->

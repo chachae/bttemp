@@ -1,7 +1,6 @@
 package com.chachae.api.controller;
 
 import com.chachae.api.common.JsonData;
-import com.chachae.api.entity.UserInfo;
 import com.chachae.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -10,7 +9,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

@@ -15,7 +15,6 @@ spring:
     mode: HTML
     cache: false
     encoding: UTF-8
-    suffix: .html
 
   #数据源配置
   datasource:
