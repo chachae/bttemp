@@ -84,21 +84,4 @@ public class ShiroConfig {
     authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
     return authorizationAttributeSourceAdvisor;
   }
-
-  @Bean(name = "simpleMappingExceptionResolver")
-  public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
-    SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
-    Properties mappings = new Properties();
-    // 数据库异常处理
-    mappings.setProperty("DatabaseException", "databaseError");
-    mappings.setProperty("UnauthorizedException", "403");
-    // None by default
-    r.setExceptionMappings(mappings);
-    // No default
-    r.setDefaultErrorView("error");
-    // Default is "exception"
-    r.setExceptionAttribute("ex");
-    // r.setWarnLogCategory("example.MvcLogger");     // No default
-    return r;
-  }
 }

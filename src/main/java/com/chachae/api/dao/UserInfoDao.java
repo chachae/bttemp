@@ -56,7 +56,7 @@ public interface UserInfoDao {
    * 通过姓名获取成员登录信息列表
    *
    * @param name 成员姓名
-   * @return该成员的详细信息
+   * @return 该成员的详细信息
    */
   List<UserInfo> selectByName(String name);
 }
