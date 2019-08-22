@@ -1,13 +1,16 @@
 package com.chachae.api.config;
 
+import com.chachae.api.entity.Permission;
 import com.chachae.api.entity.User;
 import com.chachae.api.service.LoginService;
+import com.chachae.api.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.util.StringUtils;
@@ -24,16 +27,29 @@ import javax.annotation.Resource;
 public class MyShiroRealm extends AuthorizingRealm {
 
   @Resource private LoginService loginService;
-
+  @Resource private PermissionService permissionService;
   /**
-   * 授权的方法、权限配置（本数系统数据库不包含权配置表，可省略）
+   * 授权的方法、权限配置（本数系统数据库不包含权配置表，没有对特定角色授权的话可省略）
    *
-   * @param principalCollection Realm验证成功的身份信息
+   * @param principals Realm验证成功的身份信息
    * @return 该身份的权限
    */
   @Override
-  protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-    return null;
+  protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+    System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
+    SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+    // 获取登录用户名
+    String name = (String) principals.getPrimaryPrincipal();
+    // 查询用户名称
+    User user = loginService.getUserByName(name);
+    // 添加角色和权限
+    Integer role = user.getRole();
+    authorizationInfo.addRole(String.valueOf(role));
+    for (Permission permission : permissionService.getByRoleId(role)) {
+      log.info("{}", permission.getName());
+      authorizationInfo.addStringPermission(permission.getPermission());
+    }
+    return authorizationInfo;
   }
 
   /**

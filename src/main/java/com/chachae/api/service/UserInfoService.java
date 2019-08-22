@@ -38,7 +38,7 @@ public interface UserInfoService {
    *
    * @return 成员详细信息列表
    */
-  List getList();
+  List<UserInfo> getList();
 
   /**
    * 添加成员登录信息

@@ -33,7 +33,7 @@ public class UserInfoServiceImpl implements UserInfoService {
   }
 
   @Override
-  public List getList() {
+  public  List<UserInfo> getList() {
     return userInfoDao.selectAllList();
   }
 

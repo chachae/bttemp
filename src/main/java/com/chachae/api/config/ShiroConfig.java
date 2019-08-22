@@ -1,5 +1,6 @@
 package com.chachae.api.config;
 
+import com.chachae.api.common.ShiroExceptionResolver;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -8,6 +9,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import java.util.Map;
@@ -26,10 +28,6 @@ public class ShiroConfig {
   public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
     ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
     shiroFilterFactoryBean.setSecurityManager(securityManager);
-    // 配置拦截器
-    shiroFilterFactoryBean.setLoginUrl("/login");
-    shiroFilterFactoryBean.setSuccessUrl("/main");
-    shiroFilterFactoryBean.setUnauthorizedUrl("/403");
     Map<String, String> map = Maps.newLinkedHashMap();
     // 配置不会被拦截的链接，顺序判断
     map.put("/static/**", "anon");
@@ -37,6 +35,10 @@ public class ShiroConfig {
     map.put("/login", "anon");
     map.put("/logout", "logout");
     map.put("/**", "authc");
+    // 配置拦截器
+    shiroFilterFactoryBean.setLoginUrl("/login");
+    shiroFilterFactoryBean.setSuccessUrl("/main");
+    shiroFilterFactoryBean.setUnauthorizedUrl("/403");
     shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
     return shiroFilterFactoryBean;
   }
@@ -83,5 +85,10 @@ public class ShiroConfig {
         new AuthorizationAttributeSourceAdvisor();
     authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
     return authorizationAttributeSourceAdvisor;
+  }
+
+  @Bean(name = "exceptionHandler")
+  public HandlerExceptionResolver handlerExceptionResolver() {
+    return new ShiroExceptionResolver();
   }
 }

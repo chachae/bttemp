@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chachae.api.dao.PermissionDao">
+
+    <resultMap id="baseResultMap" type="Permission">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="permission" property="permission"/>
+        <result column="resource_type" property="resourceType"/>
+        <result column="url" property="url"/>
+    </resultMap>
+
+    <select id="selectByRoleId" resultMap="baseResultMap">
+        SELECT id,name,permission,resource_type,url FROM t_permission WHERE t_permission.id IN (SELECT permission_id
+        FROM
+        t_role_permission WHERE role_id =
+        #{role,jdbcType=INTEGER} )
+    </select>
+</mapper>
