@@ -32,7 +32,7 @@ public class LoginController {
     // 从SecurityUtils里边创建一个 subject
     Subject subject = SecurityUtils.getSubject();
     // 在认证提交前准备 token（令牌）
-    UsernamePasswordToken token = new UsernamePasswordToken(username, password,false);
+    UsernamePasswordToken token = new UsernamePasswordToken(username, password, false);
     // 执行认证登陆
     try {
       subject.login(token);
@@ -45,7 +45,7 @@ public class LoginController {
     }
     if (subject.isAuthenticated()) {
       // 验证成功，把token给前端
-    return JsonData.success(token, "登录成功");
+      return JsonData.success(token, "登录成功");
     } else {
       return JsonData.fail("登录失败");
     }
@@ -59,11 +59,5 @@ public class LoginController {
   @GetMapping("/main")
   public String toMain() {
     return "main";
-  }
-
-  @GetMapping("/403")
-  public String unauthorizedRole() {
-    System.out.println("------没有权限-------");
-    return "403";
   }
 }

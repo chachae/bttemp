@@ -1,6 +1,5 @@
 package com.chachae.api.config;
 
-import com.chachae.api.common.ShiroExceptionResolver;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -9,7 +8,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.util.Map;
 
@@ -83,15 +81,5 @@ public class ShiroConfig {
         new AuthorizationAttributeSourceAdvisor();
     authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
     return authorizationAttributeSourceAdvisor;
-  }
-
-  /**
-   * shiro统一异常处理
-   *
-   * @return ShiroExceptionResolver
-   */
-  @Bean(name = "exceptionHandler")
-  public HandlerExceptionResolver handlerExceptionResolver() {
-    return new ShiroExceptionResolver();
   }
 }

@@ -3,7 +3,6 @@ package com.chachae.api.common;
 import com.chachae.api.exception.ParamException;
 import com.chachae.api.exception.PermissionException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,13 +40,6 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
       // 将捕获到的定义异常信息放入JsonData的fail方法中，通过ModelAndView返回给前端
       JsonData result = JsonData.fail(ex.getMessage());
       mv = new ModelAndView("jsonView", result.toMap());
-    } else if (ex instanceof UnauthenticatedException) {
-      // 打印错误信息
-      log.error("未知错误，请查询日志堆栈信息, url:" + url, ex);
-      // 将捕获到的定义异常信息放入JsonData的fail方法中，通过ModelAndView返回给前端
-      JsonData result = JsonData.fail(ex.getMessage());
-      mv = new ModelAndView("jsonView", result.toMap());
-      mv.setViewName("403");
     } else {
       log.error("未知错误，请查询日志堆栈信息, url:" + url, ex);
       // 其他错误直接返回默认地错误信息，极少会情况会触发（什么500,400之类的）
