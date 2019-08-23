@@ -39,9 +39,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     log.info("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
     SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
     // 获取登录用户名
-    String name = (String) principals.getPrimaryPrincipal();
-    // 查询用户名称
-    User user = loginService.getUserByName(name);
+    User user = (User) principals.getPrimaryPrincipal();
     // 添加角色和权限
     Integer role = user.getRole();
     authorizationInfo.addRole(String.valueOf(role));
@@ -71,6 +69,6 @@ public class MyShiroRealm extends AuthorizingRealm {
       return null;
     }
     // 这里验证authenticationToken和simpleAuthenticationInfo的信息
-    return new SimpleAuthenticationInfo(username, user.getPassword(), getName());
+    return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
   }
 }

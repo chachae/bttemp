@@ -1,6 +1,7 @@
 package com.chachae.api.controller;
 
 import com.chachae.api.common.JsonData;
+import com.chachae.api.entity.User;
 import com.chachae.api.entity.UserInfo;
 import com.chachae.api.mapstruct.UserInfoConverter;
 import com.chachae.api.service.UserInfoService;
@@ -8,8 +9,7 @@ import com.chachae.api.service.UserService;
 import com.chachae.api.util.BeanValidator;
 import com.chachae.api.util.ParamTransUtils;
 import com.chachae.api.vo.UserInfoVO;
-import com.google.common.collect.Lists;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +17,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * 详细信息控制层
+ *
  * @author chachae
  * @date 2019/8/17
  */
@@ -33,7 +35,6 @@ public class UserInfoController {
     List<UserInfo> list = userInfoService.getList();
     List<UserInfoVO> voList = UserInfoConverter.INSTANCES.toUserInfoVoList(list);
     // foreach循环，调用工具类，将VO对象中的数字数据转化成其中文释义
-    /*TODO Mapstruct 有问题 - warn */
     for (UserInfoVO vo : voList) {
       // 调用工具类，将VO对象中的数字数据转化成其中文释义
       vo.setMajor(ParamTransUtils.calculateMajor(vo.getStuId()));
@@ -43,13 +44,29 @@ public class UserInfoController {
     return JsonData.success(voList, "查询成功");
   }
 
-  @PostMapping("/self")
-  public void selfInfo(UsernamePasswordToken token) {}
+  /**
+   * 获取个人信息
+   *
+   * @return 个人信息
+   */
+  @GetMapping("/self")
+  public JsonData selfInfo() {
+    User user = (User) SecurityUtils.getSubject().getPrincipal();
+    UserInfo selfInfo = userInfoService.getByUserUuid(user.getUserUuid());
+    UserInfoVO vo = UserInfoConverter.INSTANCES.toUserInfoVO(selfInfo);
+    BeanValidator.check(vo);
+    return JsonData.success(vo, "获取个人信息成功");
+  }
 
-  @DeleteMapping("/delete/{userUuid}")
-  @RequiresPermissions("userInfo:del")
-  public Object deleteUserByUuid(@PathVariable("userUuid") String userUuid) {
-    userService.remove(userUuid);
-    return "";
+  /**
+   * 修改详细信息
+   *
+   * @param userInfo 用户输入的详细信息
+   * @return JSON，用true / false判断
+   */
+  @PutMapping("/update")
+  public JsonData updateInfo(UserInfo userInfo) {
+    userInfoService.modify(userInfo);
+    return JsonData.success(1, "修改成功！");
   }
 }

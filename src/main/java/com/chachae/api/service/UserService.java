@@ -33,7 +33,6 @@ public interface UserService {
    */
   int remove(String userUuid);
 
-
   /**
    * 修改详细信息
    *

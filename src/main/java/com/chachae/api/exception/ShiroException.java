@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @date 2019/8/22
  */
 @ControllerAdvice
-public class ShiroException {
+public class ShiroException extends RuntimeException {
+
   @ExceptionHandler
   public String exception(Exception ex) {
     if (ex instanceof UnauthenticatedException) {
-      return "redirect:/403";
+      return "403";
     } else if (ex instanceof UnauthorizedException) {
-      return "/403";
+      return "403";
     }
     return null;
   }
