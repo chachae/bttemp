@@ -17,4 +17,11 @@ public interface PermissionService {
    * @return 所属角色的权限列表
    */
   List<Permission> getByRoleId(Integer role);
+
+  /**
+   * 获取所有的权限信息
+   *
+   * @return 权限信息列表
+   */
+  public List<Permission> getList();
 }

@@ -19,4 +19,11 @@ public interface PermissionDao {
    * @return 所属角色的权限列表
    */
   List<Permission> selectByRoleId(Integer role);
+
+  /**
+   * 获取所有的权限信息
+   *
+   * @return 权限信息列表
+   */
+  List<Permission> selectList();
 }
