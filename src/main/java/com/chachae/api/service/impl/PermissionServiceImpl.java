@@ -21,4 +21,9 @@ public class PermissionServiceImpl implements PermissionService {
   public List<Permission> getByRoleId(Integer role) {
     return permissionDao.selectByRoleId(role);
   }
+
+  @Override
+  public List<Permission> getList() {
+    return permissionDao.selectList();
+  }
 }

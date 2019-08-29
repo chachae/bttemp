@@ -16,4 +16,8 @@
         t_role_permission WHERE role_id =
         #{role,jdbcType=INTEGER} )
     </select>
+
+    <select id="selectList" resultMap="baseResultMap">
+        SELECT * FROM t_permission;
+    </select>
 </mapper>
