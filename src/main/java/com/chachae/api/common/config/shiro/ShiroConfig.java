@@ -1,5 +1,6 @@
-package com.chachae.api.config.shiro;
+package com.chachae.api.common.config.shiro;
 
+import com.chachae.api.common.config.shiro.filter.ShiroLoginFilter;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -9,6 +10,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.Map;
 
 /**
@@ -24,6 +26,10 @@ public class ShiroConfig {
   public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
     ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
     shiroFilterFactoryBean.setSecurityManager(securityManager);
+    // 获取filters
+    Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
+    // 将自定义 的FormAuthenticationFilter注入shiroFilter中
+    filters.put("authc", new ShiroLoginFilter());
     Map<String, String> map = Maps.newLinkedHashMap();
     // 配置不会被拦截的链接，顺序判断
     map.put("/static/**", "anon");

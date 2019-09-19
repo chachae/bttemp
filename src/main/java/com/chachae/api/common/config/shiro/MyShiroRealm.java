@@ -1,8 +1,8 @@
-package com.chachae.api.config.shiro;
+package com.chachae.api.common.config.shiro;
 
 import com.chachae.api.entity.Permission;
 import com.chachae.api.entity.User;
-import com.chachae.api.service.LoginService;
+import com.chachae.api.service.AuthService;
 import com.chachae.api.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
@@ -26,7 +26,7 @@ import javax.annotation.Resource;
 @Slf4j
 public class MyShiroRealm extends AuthorizingRealm {
 
-  @Resource private LoginService loginService;
+  @Resource private AuthService authService;
   @Resource private PermissionService permissionService;
   /**
    * 授权的方法、权限配置（本数系统数据库不包含权配置表，没有对特定角色授权的话可省略）
@@ -61,7 +61,7 @@ public class MyShiroRealm extends AuthorizingRealm {
       throws AuthenticationException {
     // 获取用户输入的账号
     String username = (String) token.getPrincipal();
-    User user = loginService.getUserByName(username);
+    User user = authService.getUserByName(username);
     if (StringUtils.isEmpty(user)) {
       return null;
     }

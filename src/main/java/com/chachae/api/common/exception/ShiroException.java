@@ -1,4 +1,4 @@
-package com.chachae.api.exception;
+package com.chachae.api.common.exception;
 
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;

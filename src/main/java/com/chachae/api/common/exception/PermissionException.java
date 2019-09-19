@@ -1,4 +1,4 @@
-package com.chachae.api.exception;
+package com.chachae.api.common.exception;
 
 /**
  * 自定义异常处理<br>

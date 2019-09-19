@@ -1,4 +1,4 @@
-package com.chachae.api.config.spring;
+package com.chachae.api.common.config.spring;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;

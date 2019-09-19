@@ -1,8 +1,8 @@
 package com.chachae.api.service.impl;
 
-import com.chachae.api.dao.LoginDao;
+import com.chachae.api.dao.AuthDao;
 import com.chachae.api.entity.User;
-import com.chachae.api.service.LoginService;
+import com.chachae.api.service.AuthService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,9 +12,9 @@ import javax.annotation.Resource;
  * @date 2019/8/16
  */
 @Service
-public class LoginServiceImpl implements LoginService {
+public class AuthServiceImpl implements AuthService {
 
-  @Resource private LoginDao loginDao;
+  @Resource private AuthDao authDao;
 
   @Override
   public User getUserByName(String username) {
@@ -22,11 +22,11 @@ public class LoginServiceImpl implements LoginService {
     如果验证用户名为手机号码，调用<手机 - 密码>验证接口
     其他为学号，调用<学号 - 密码>验证接口*/
     if (checkPhone(username)) {
-      return loginDao.selectByPhone(username);
+      return authDao.selectByPhone(username);
     } else if (checkEmail(username)) {
-      return loginDao.selectByEmail(username);
+      return authDao.selectByEmail(username);
     } else {
-      return loginDao.selectByStuId(username);
+      return authDao.selectByStuId(username);
     }
   }
 

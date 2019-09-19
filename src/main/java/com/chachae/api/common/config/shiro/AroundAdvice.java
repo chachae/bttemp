@@ -1,4 +1,4 @@
-package com.chachae.api.common;
+package com.chachae.api.common.config.shiro;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

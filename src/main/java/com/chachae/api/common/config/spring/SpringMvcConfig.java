@@ -1,4 +1,4 @@
-package com.chachae.api.config.spring;
+package com.chachae.api.common.config.spring;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

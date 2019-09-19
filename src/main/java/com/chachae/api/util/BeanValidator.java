@@ -1,6 +1,6 @@
 package com.chachae.api.util;
 
-import com.chachae.api.exception.ParamException;
+import com.chachae.api.common.exception.ParamException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

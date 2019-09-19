@@ -29,7 +29,6 @@ public interface UserInfoConverter {
    */
   @Mappings({
     @Mapping(source = "user.stuId", target = "stuId"),
-    @Mapping(source = "user.password", target = "password"),
     @Mapping(source = "user.role", target = "role"),
     @Mapping(target = "major", ignore = true),
   })

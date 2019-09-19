@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
  * @date 2019/8/16
  */
 @Mapper
-public interface LoginDao {
+public interface AuthDao {
 
   /**
    * 登录（通过学号和密码）

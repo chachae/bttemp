@@ -1,6 +1,7 @@
 package com.chachae.api.controller;
 
 import com.chachae.api.common.JsonData;
+import com.chachae.api.common.exception.BaseAuthException;
 import com.chachae.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -22,7 +23,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Controller
-public class LoginController {
+public class AuthController extends BaseAuthException {
 
   @Resource private UserService userService;
 
@@ -50,9 +51,6 @@ public class LoginController {
       return JsonData.fail("登录失败");
     }
   }
-
-
-
 
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public String defaultLogin() {

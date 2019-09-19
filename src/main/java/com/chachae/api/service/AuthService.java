@@ -6,7 +6,7 @@ import com.chachae.api.entity.User;
  * @author chachae
  * @date 2019/8/16
  */
-public interface LoginService {
+public interface AuthService {
 
   /**
    * 通过登录数据查询该用户的信息
