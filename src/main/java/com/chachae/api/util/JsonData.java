@@ -1,4 +1,4 @@
-package com.chachae.api.common;
+package com.chachae.api.util;
 
 import lombok.Data;
 

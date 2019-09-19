@@ -1,7 +1,7 @@
 package com.chachae.api.controller;
 
 import cn.hutool.core.util.IdUtil;
-import com.chachae.api.common.JsonData;
+import com.chachae.api.util.JsonData;
 import com.chachae.api.entity.User;
 import com.chachae.api.entity.UserInfo;
 import com.chachae.api.service.UserInfoService;
@@ -46,7 +46,7 @@ public class UserController {
   }
 
   @DeleteMapping("/delete/{userUuid}")
-  @RequiresPermissions("userInfo:del")
+  @RequiresPermissions("user:del")
   public JsonData deleteUserByUuid(@PathVariable("userUuid") String userUuid) {
     userService.remove(userUuid);
     return JsonData.success(1, "删除成功");

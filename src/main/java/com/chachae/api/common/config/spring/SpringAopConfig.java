@@ -1,4 +1,4 @@
-package com.chachae.api.common.config.shiro;
+package com.chachae.api.common.config.spring;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,9 +18,9 @@ import java.util.Arrays;
  */
 @Aspect
 @Component
-public class AroundAdvice {
+public class SpringAopConfig {
   /** 为每个AroundLogger.class声明一个Logger私有属性 */
-  private static final Logger log = LoggerFactory.getLogger(AroundAdvice.class);
+  private static final Logger log = LoggerFactory.getLogger(SpringAopConfig.class);
 
   /** 定义切入点，切入点为com.example.demo 下的所有函数 */
   @Pointcut("execution(* com.chachae.api.service..*.*(..) )")

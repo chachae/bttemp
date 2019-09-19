@@ -1,6 +1,6 @@
 package com.chachae.api.controller;
 
-import com.chachae.api.common.JsonData;
+import com.chachae.api.util.JsonData;
 import com.chachae.api.entity.User;
 import com.chachae.api.entity.UserInfo;
 import com.chachae.api.mapstruct.UserInfoConverter;

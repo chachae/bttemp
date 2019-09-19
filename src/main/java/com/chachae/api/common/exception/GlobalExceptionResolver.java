@@ -1,6 +1,6 @@
 package com.chachae.api.common.exception;
 
-import com.chachae.api.common.JsonData;
+import com.chachae.api.util.JsonData;
 import com.chachae.api.util.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.UnauthenticatedException;

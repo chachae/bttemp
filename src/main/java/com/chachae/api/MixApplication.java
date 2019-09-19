@@ -4,13 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
+ * 启动器
+ *
  * @author chachae
  */
 @SpringBootApplication
-public class ShiroApplication {
+public class MixApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ShiroApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(MixApplication.class, args);
+  }
 }

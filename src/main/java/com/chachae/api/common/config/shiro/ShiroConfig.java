@@ -40,7 +40,6 @@ public class ShiroConfig {
     // 配置拦截器
     shiroFilterFactoryBean.setLoginUrl("/login");
     shiroFilterFactoryBean.setSuccessUrl("/main");
-    shiroFilterFactoryBean.setUnauthorizedUrl("/403");
     shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
     return shiroFilterFactoryBean;
   }

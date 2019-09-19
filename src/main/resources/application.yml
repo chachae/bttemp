@@ -3,6 +3,10 @@ server:
   port: 8081
   tomcat:
     uri-encoding: UTF-8
+  servlet:
+    session:
+      timeout: 30m
+      store-dir: redis
 
 #spring配置
 spring:
@@ -27,7 +31,7 @@ spring:
       pool-name: DatebookHikariCP
       auto-commit: true
       minimum-idle: 3
-      maximum-pool-size: 20
+      maximum-pool-size: 30
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: select 1
@@ -36,6 +40,10 @@ spring:
   jackson:
     time-zone: Asia/Chongqing
     date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
 
 #Mybatis配置
 mybatis:

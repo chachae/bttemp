@@ -1,6 +1,6 @@
 package com.chachae.api.common.exception;
 
-import com.chachae.api.common.JsonData;
+import com.chachae.api.util.JsonData;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
