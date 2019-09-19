@@ -6,7 +6,6 @@ import com.chachae.api.entity.User;
 import com.chachae.api.service.PermissionService;
 import com.chachae.api.service.UserService;
 import com.chachae.api.util.JsonUtils;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

@@ -1,11 +1,11 @@
 package com.chachae.api.controller;
 
+import cn.hutool.core.util.IdUtil;
 import com.chachae.api.common.JsonData;
 import com.chachae.api.entity.User;
 import com.chachae.api.entity.UserInfo;
 import com.chachae.api.service.UserInfoService;
 import com.chachae.api.service.UserService;
-import com.chachae.api.util.UUIDUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +28,8 @@ public class UserController {
   @PostMapping("/add")
   @RequiresPermissions("")
   public JsonData insertUser(User user) {
-    String userUuid = UUIDUtils.create32UUID();
-    String userInfoUuid = UUIDUtils.create32UUID();
+    String userUuid = IdUtil.simpleUUID();
+    String userInfoUuid = IdUtil.simpleUUID();
     user.setUserUuid(userUuid);
     UserInfo userInfo = new UserInfo().setUserInfoUuid(userUuid).setUserUuid(userInfoUuid);
     userService.add(user);

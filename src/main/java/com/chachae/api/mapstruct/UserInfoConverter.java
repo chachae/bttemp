@@ -1,7 +1,7 @@
 package com.chachae.api.mapstruct;
 
 import com.chachae.api.entity.UserInfo;
-import com.chachae.api.vo.UserInfoVO;
+import com.chachae.api.entity.vo.UserInfoVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

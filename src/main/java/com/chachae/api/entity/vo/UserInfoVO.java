@@ -1,4 +1,4 @@
-package com.chachae.api.vo;
+package com.chachae.api.entity.vo;
 
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -46,14 +45,6 @@ public class UserInfoVO implements Serializable {
   /** 邮箱 */
   @Email(message = "不是一个合法的邮箱地址")
   private String email;
-
-  /** 成员登录密码 */
-  @NotBlank(message = "密码不能为空")
-  @Size(max = 32, message = "密码长度不能超过32位")
-  private String password;
-
-  /** 教务系统密码 */
-  private String eduPassword;
 
   /** 方向 */
   private String orientation;

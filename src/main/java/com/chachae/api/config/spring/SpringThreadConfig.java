@@ -1,4 +1,4 @@
-package com.chachae.api.config;
+package com.chachae.api.config.spring;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import java.util.concurrent.Executor;
  */
 @Configuration
 @EnableAsync
-public class ThreadConfig implements AsyncConfigurer {
+public class SpringThreadConfig implements AsyncConfigurer {
   @Override
   public Executor getAsyncExecutor() {
     ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

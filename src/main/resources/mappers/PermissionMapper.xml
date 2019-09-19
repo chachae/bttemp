@@ -18,6 +18,7 @@
     </select>
 
     <select id="selectList" resultMap="baseResultMap">
-        SELECT * FROM t_permission;
+        SELECT *
+        FROM t_permission;
     </select>
 </mapper>

@@ -8,7 +8,7 @@ import com.chachae.api.service.UserInfoService;
 import com.chachae.api.service.UserService;
 import com.chachae.api.util.BeanValidator;
 import com.chachae.api.util.ParamTransUtils;
-import com.chachae.api.vo.UserInfoVO;
+import com.chachae.api.entity.vo.UserInfoVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;

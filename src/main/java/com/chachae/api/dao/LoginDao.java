@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
  * @author chachae
  * @date 2019/8/16
  */
-
 @Mapper
 public interface LoginDao {
 

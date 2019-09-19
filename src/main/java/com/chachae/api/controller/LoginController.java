@@ -51,6 +51,9 @@ public class LoginController {
     }
   }
 
+
+
+
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public String defaultLogin() {
     return "/login";

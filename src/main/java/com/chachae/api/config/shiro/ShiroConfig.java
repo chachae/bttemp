@@ -1,4 +1,4 @@
-package com.chachae.api.config;
+package com.chachae.api.config.shiro;
 
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;

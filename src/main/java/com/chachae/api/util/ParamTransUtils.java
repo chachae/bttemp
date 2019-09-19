@@ -1,8 +1,8 @@
 package com.chachae.api.util;
 
-import com.chachae.api.vo.UserInfoVO;
+import com.chachae.api.entity.vo.UserInfoVO;
+import com.google.common.collect.Maps;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,7 +19,7 @@ public class ParamTransUtils {
    * @return map 专业集合
    */
   private static Map<String, String> setMajor() {
-    Map<String, String> map = new HashMap<>(16);
+    Map<String, String> map = Maps.newHashMap();
     map.put("0404", "计算机科学与技术");
     map.put("0406", "网络工程");
     map.put("0407", "软件工程");
@@ -34,7 +34,7 @@ public class ParamTransUtils {
    * @return 性别集合
    */
   private static Map<String, String> setSex() {
-    Map<String, String> map = new HashMap<>(4);
+    Map<String, String> map = Maps.newHashMap();
     map.put("1", "男");
     map.put("0", "女");
     return map;
@@ -46,7 +46,7 @@ public class ParamTransUtils {
    * @return 成员状态集合
    */
   private static Map<String, String> setNote() {
-    Map<String, String> map = new HashMap<>(8);
+    Map<String, String> map = Maps.newHashMap();
     map.put("1", "老师");
     map.put("2", "毕业生");
     map.put("3", "在校生");
@@ -60,7 +60,7 @@ public class ParamTransUtils {
    * @return 方向集合
    */
   private static Map<String, String> setOrientation() {
-    Map<String, String> map = new HashMap<>(8);
+    Map<String, String> map = Maps.newHashMap();
     map.put("1", "后台开发");
     map.put("2", "前端设计");
     map.put("3", "UI设计");
@@ -74,7 +74,7 @@ public class ParamTransUtils {
    * @return 角色集合
    */
   private static Map<String, String> setRole() {
-    Map<String, String> map = new HashMap<>(8);
+    Map<String, String> map = Maps.newHashMap();
     map.put("1", "超级管理员");
     map.put("2", "普通管理员");
     map.put("3", "普通成员");
