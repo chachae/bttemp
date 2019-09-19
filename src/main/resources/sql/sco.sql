@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 29/08/2019 14:56:40
+ Date: 19/09/2019 14:02:29
 */
 
 SET NAMES utf8mb4;
@@ -72,7 +72,7 @@ CREATE TABLE `t_permission`  (
 -- ----------------------------
 INSERT INTO `t_permission` VALUES (1, b'0', '用户管理', 'userInfo:view', 'menu', 'userInfo/list');
 INSERT INTO `t_permission` VALUES (2, b'0', '用户添加', 'userInfo:add', 'button', 'user/add');
-INSERT INTO `t_permission` VALUES (3, b'0', '用户删除', 'userInfo:del', 'button', 'user/delete');
+INSERT INTO `t_permission` VALUES (3, b'0', '用户删除', 'user:del', 'button', 'user/delete');
 
 -- ----------------------------
 -- Table structure for t_role
