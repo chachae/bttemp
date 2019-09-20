@@ -6,14 +6,10 @@ import com.chachae.api.entity.UserInfo;
 import com.chachae.api.entity.dto.UserInfoDTO;
 import com.chachae.api.entity.vo.UserInfoVO;
 import com.chachae.api.service.UserInfoService;
-import com.chachae.api.service.UserService;
-import com.chachae.api.util.BeanValidator;
 import com.chachae.api.util.JsonData;
-import com.chachae.api.util.ParamTransUtils;
 import com.google.common.collect.Lists;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +28,6 @@ import java.util.List;
 @RequestMapping("/userInfo")
 public class UserInfoController {
 
-  @Resource private UserService userService;
   @Resource private UserInfoService userInfoService;
 
   @GetMapping("/list")
@@ -40,17 +35,9 @@ public class UserInfoController {
   public Object list() {
     List<UserInfoDTO> dtoList = userInfoService.getList();
     List<UserInfoVO> voList = Lists.newArrayList();
-    // 判断集合对象是否为空，不为空返回成功，空返回失败
     if (ObjectUtil.isNotEmpty(dtoList)) {
-      // foreach循环，调用工具类，将VO对象中的数字数据转化成其中文释义
       for (UserInfoDTO dto : dtoList) {
-        UserInfoVO vo = new UserInfoVO();
-        BeanUtils.copyProperties(dto, vo);
-        // 调用工具类，将VO对象中的数字数据转化成其中文释义
-        vo.setMajor(ParamTransUtils.calculateMajor(dto.getStuId()));
-        // 使用BeanValidator校验数据
-        BeanValidator.check(vo);
-        voList.add(vo);
+        voList.add(UserInfoVO.toVo(dto));
       }
       return JsonData.success(voList, "查询成功");
     }
@@ -66,10 +53,7 @@ public class UserInfoController {
   public JsonData selfInfo() {
     User user = (User) SecurityUtils.getSubject().getPrincipal();
     UserInfoDTO dto = userInfoService.getByUserUuid(user.getUserUuid());
-    UserInfoVO vo = new UserInfoVO();
-    BeanUtils.copyProperties(dto, vo);
-    vo.setMajor(ParamTransUtils.calculateMajor(dto.getStuId()));
-    BeanValidator.check(vo);
+    UserInfoVO vo = UserInfoVO.toVo(dto);
     return JsonData.success(vo, "获取个人信息成功");
   }
 

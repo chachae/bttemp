@@ -4,14 +4,20 @@ import com.chachae.api.common.config.shiro.filter.ShiroLoginFilter;
 import com.chachae.api.common.config.shiro.session.ShiroSessionListener;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
+import org.apache.shiro.authz.Authorizer;
+import org.apache.shiro.authz.ModularRealmAuthorizer;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -81,6 +87,36 @@ public class ShiroConfig {
     return myShiroRealm;
   }
 
+  /**
+   * 授权bean
+   *
+   * @param myShiroRealm 自定义realm
+   * @return 返回注入realm的授权器
+   */
+  @Bean("authorizer")
+  public Authorizer authorizer(@Qualifier("myShiroRealm") MyShiroRealm myShiroRealm) {
+    ModularRealmAuthorizer authorizer = new ModularRealmAuthorizer();
+    Collection<Realm> cRealms = Lists.newArrayList();
+    cRealms.add(myShiroRealm);
+    authorizer.setRealms(cRealms);
+    return authorizer;
+  }
+
+  /**
+   * 认证bean
+   *
+   * @param myShiroRealm 自定义realm
+   * @return 返回注入realm的认证器
+   */
+  @Bean("authenticator")
+  public Authenticator authenticator(@Qualifier("myShiroRealm") MyShiroRealm myShiroRealm) {
+    ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+    Collection<Realm> cRealms = Lists.newArrayList();
+    cRealms.add(myShiroRealm);
+    authenticator.setRealms(cRealms);
+    return authenticator;
+  }
+
   @Bean
   public SessionManager sessionManager(
       @Qualifier("redisSessionDAO") RedisSessionDAO redisSessionDAO) {
@@ -104,11 +140,22 @@ public class ShiroConfig {
   }
 
   @Bean
+  public RedisCacheManager redisCacheManager(@Qualifier("redisManager") RedisManager redisManager) {
+    RedisCacheManager redisCacheManager = new RedisCacheManager();
+    redisCacheManager.setRedisManager(redisManager);
+    redisCacheManager.setKeyPrefix("");
+    redisCacheManager.setPrincipalIdFieldName("stuId");
+    return redisCacheManager;
+  }
+
+  @Bean
   public SecurityManager securityManager(
-      @Qualifier("sessionManager") SessionManager sessionManager) {
+      @Qualifier("sessionManager") SessionManager sessionManager,
+      @Qualifier("redisCacheManager") RedisCacheManager redisCacheManager) {
     DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
     securityManager.setRealm(myShiroRealm());
     securityManager.setSessionManager(sessionManager);
+    securityManager.setCacheManager(redisCacheManager);
     return securityManager;
   }
 

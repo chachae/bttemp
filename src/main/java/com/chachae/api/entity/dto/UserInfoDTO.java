@@ -1,14 +1,15 @@
 package com.chachae.api.entity.dto;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.chachae.api.entity.UserInfo;
 import com.chachae.api.converter.UserInfoConverter;
+import com.chachae.api.entity.UserInfo;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
+ * 数据传输实体
+ *
  * @author chachae
  * @date 2019/9/4 21:04
  */
@@ -67,5 +68,4 @@ public class UserInfoDTO implements Serializable {
   public static UserInfoDTO dto(UserInfo userInfo) {
     return UserInfoConverter.INSTANCES.toDto(userInfo);
   }
-
 }

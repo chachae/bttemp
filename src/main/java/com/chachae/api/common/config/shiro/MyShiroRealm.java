@@ -25,7 +25,6 @@ import javax.annotation.Resource;
  */
 @Slf4j
 public class MyShiroRealm extends AuthorizingRealm {
-
   @Resource private AuthService authService;
   @Resource private PermissionService permissionService;
   /**
@@ -48,7 +47,6 @@ public class MyShiroRealm extends AuthorizingRealm {
     }
     return authorizationInfo;
   }
-
   /**
    * 认证方法
    *

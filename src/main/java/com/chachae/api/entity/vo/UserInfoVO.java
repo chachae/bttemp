@@ -1,8 +1,12 @@
 package com.chachae.api.entity.vo;
 
+import com.chachae.api.entity.dto.UserInfoDTO;
+import com.chachae.api.util.BeanValidator;
+import com.chachae.api.util.ParamTransUtils;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -71,4 +75,12 @@ public class UserInfoVO implements Serializable {
   /** 1为超管,2为普管，3没有权限 */
   @NotNull(message = "成员角色不能为空")
   private Integer role;
+
+  public static UserInfoVO toVo(UserInfoDTO dto) {
+    UserInfoVO vo = new UserInfoVO();
+    BeanUtils.copyProperties(dto, vo);
+    vo.setMajor(ParamTransUtils.calculateMajor(dto.getStuId()));
+    BeanValidator.check(vo);
+    return vo;
+  }
 }
