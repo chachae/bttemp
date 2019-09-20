@@ -1,6 +1,7 @@
 package com.chachae.api.service;
 
 import com.chachae.api.entity.UserInfo;
+import com.chachae.api.entity.dto.UserInfoDTO;
 
 import java.util.List;
 
@@ -31,14 +32,14 @@ public interface UserInfoService {
    * @param userUuid 成员UUID
    * @return 该成员的详细信息
    */
-  UserInfo findByUserUuid(String userUuid);
+  UserInfoDTO findByUserUuid(String userUuid);
 
   /**
    * 获取成员详细信息列表
    *
    * @return 成员详细信息列表
    */
-  List<UserInfo> getList();
+  List<UserInfoDTO> getList();
 
   /**
    * 添加成员登录信息
@@ -54,7 +55,7 @@ public interface UserInfoService {
    * @param name 成员姓名
    * @return 成员登陆信息列表
    */
-  List<UserInfo> getByName(String name);
+  List<UserInfoDTO> getByName(String name);
 
   /**
    * 通过姓名获取成员登录信息列表
@@ -62,5 +63,5 @@ public interface UserInfoService {
    * @param userUuid 成员uuid
    * @return 该成员的详细信息
    */
-  UserInfo getByUserUuid(String userUuid);
+  UserInfoDTO getByUserUuid(String userUuid);
 }

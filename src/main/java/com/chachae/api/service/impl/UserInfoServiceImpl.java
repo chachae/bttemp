@@ -2,7 +2,9 @@ package com.chachae.api.service.impl;
 
 import com.chachae.api.dao.UserInfoDao;
 import com.chachae.api.entity.UserInfo;
+import com.chachae.api.entity.dto.UserInfoDTO;
 import com.chachae.api.service.UserInfoService;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,13 +30,20 @@ public class UserInfoServiceImpl implements UserInfoService {
   }
 
   @Override
-  public UserInfo findByUserUuid(String userUuid) {
-    return userInfoDao.selectByUserUuid(userUuid);
+  public UserInfoDTO findByUserUuid(String userUuid) {
+    UserInfo userInfo = userInfoDao.selectByUserUuid(userUuid);
+    return UserInfoDTO.dto(userInfo);
   }
 
   @Override
-  public  List<UserInfo> getList() {
-    return userInfoDao.selectAllList();
+  public List<UserInfoDTO> getList() {
+    List<UserInfo> list = userInfoDao.selectAllList();
+    List<UserInfoDTO> dtoList = Lists.newArrayList();
+    for (UserInfo userInfo : list) {
+      UserInfoDTO dto = UserInfoDTO.dto(userInfo);
+      dtoList.add(dto);
+    }
+    return dtoList;
   }
 
   @Override
@@ -43,12 +52,19 @@ public class UserInfoServiceImpl implements UserInfoService {
   }
 
   @Override
-  public List<UserInfo> getByName(String name) {
-    return userInfoDao.selectByName(name);
+  public List<UserInfoDTO> getByName(String name) {
+    List<UserInfo> list = userInfoDao.selectByName(name);
+    List<UserInfoDTO> dtoList = Lists.newArrayList();
+    for (UserInfo userInfo : list) {
+      UserInfoDTO dto = UserInfoDTO.dto(userInfo);
+      dtoList.add(dto);
+    }
+    return dtoList;
   }
 
   @Override
-  public UserInfo getByUserUuid(String userUuid) {
-    return userInfoDao.selectByUserUuid(userUuid);
+  public UserInfoDTO getByUserUuid(String userUuid) {
+    UserInfo userInfo = userInfoDao.selectByUserUuid(userUuid);
+    return UserInfoDTO.dto(userInfo);
   }
 }

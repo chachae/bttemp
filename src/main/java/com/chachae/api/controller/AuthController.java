@@ -1,19 +1,13 @@
 package com.chachae.api.controller;
 
-import com.chachae.api.util.JsonData;
 import com.chachae.api.common.exception.BaseAuthException;
-import com.chachae.api.service.UserService;
+import com.chachae.api.util.JsonData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 /**
  * 登录控制层
@@ -25,8 +19,6 @@ import javax.annotation.Resource;
 @Controller
 public class AuthController extends BaseAuthException {
 
-  @Resource private UserService userService;
-
   @ResponseBody
   @PostMapping("/login")
   public Object login(String username, String password) {
@@ -35,15 +27,7 @@ public class AuthController extends BaseAuthException {
     // 在认证提交前准备 token（令牌）
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, false);
     // 执行认证登陆
-    try {
-      subject.login(token);
-    } catch (UnknownAccountException uae) {
-      return JsonData.fail("未知账户");
-    } catch (IncorrectCredentialsException ice) {
-      return JsonData.fail("密码不正确");
-    } catch (AuthenticationException ae) {
-      return JsonData.fail("用户名或密码不正确");
-    }
+    subject.login(token);
     if (subject.isAuthenticated()) {
       // 验证成功，把token给前端
       return JsonData.success(token, "登录成功");

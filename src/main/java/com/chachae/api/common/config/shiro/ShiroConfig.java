@@ -1,16 +1,25 @@
 package com.chachae.api.common.config.shiro;
 
 import com.chachae.api.common.config.shiro.filter.ShiroLoginFilter;
+import com.chachae.api.common.config.shiro.session.ShiroSessionListener;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.SessionListener;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.crazycake.shiro.RedisManager;
+import org.crazycake.shiro.RedisSessionDAO;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -33,6 +42,7 @@ public class ShiroConfig {
     Map<String, String> map = Maps.newLinkedHashMap();
     // 配置不会被拦截的链接，顺序判断
     map.put("/static/**", "anon");
+    map.put("/resources/**", "anon");
     map.put("/webjars/**", "anon");
     map.put("/login", "anon");
     map.put("/logout", "logout");
@@ -59,6 +69,11 @@ public class ShiroConfig {
     return hashedCredentialsMatcher;
   }
 
+  /**
+   * 自定义realm
+   *
+   * @return shiroRealm
+   */
   @Bean
   public MyShiroRealm myShiroRealm() {
     MyShiroRealm myShiroRealm = new MyShiroRealm();
@@ -67,9 +82,33 @@ public class ShiroConfig {
   }
 
   @Bean
-  public SecurityManager securityManager() {
+  public SessionManager sessionManager(
+      @Qualifier("redisSessionDAO") RedisSessionDAO redisSessionDAO) {
+    DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+    Collection<SessionListener> listeners = Lists.newArrayList();
+    listeners.add(new ShiroSessionListener());
+    sessionManager.setSessionListeners(listeners);
+    // 设置session超时时间为1小时(单位毫秒)
+    sessionManager.setGlobalSessionTimeout(3600000);
+    // 设置redisSessionDao
+    sessionManager.setSessionDAO(redisSessionDAO);
+    return sessionManager;
+  }
+
+  /** 配置redisSessionDAO */
+  @Bean
+  public RedisSessionDAO redisSessionDAO(@Qualifier("redisManager") RedisManager redisManager) {
+    RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+    redisSessionDAO.setRedisManager(redisManager);
+    return redisSessionDAO;
+  }
+
+  @Bean
+  public SecurityManager securityManager(
+      @Qualifier("sessionManager") SessionManager sessionManager) {
     DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
     securityManager.setRealm(myShiroRealm());
+    securityManager.setSessionManager(sessionManager);
     return securityManager;
   }
 

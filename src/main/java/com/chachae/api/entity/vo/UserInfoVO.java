@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -47,10 +48,10 @@ public class UserInfoVO implements Serializable {
   private String email;
 
   /** 方向 */
-  private String orientation;
+  private Integer orientation;
 
   /** 性别 1:男 0:女 */
-  private String sex;
+  private Integer sex;
 
   /** 头像 */
   private String icon;
@@ -65,9 +66,9 @@ public class UserInfoVO implements Serializable {
   private String speciality;
 
   /** 1老师、2毕业生、3在校、4考核 */
-  private String note;
+  private Integer note;
 
   /** 1为超管,2为普管，3没有权限 */
-  @NotBlank(message = "成员角色不能为空")
-  private String role;
+  @NotNull(message = "成员角色不能为空")
+  private Integer role;
 }

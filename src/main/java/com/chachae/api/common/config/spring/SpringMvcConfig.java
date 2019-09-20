@@ -1,9 +1,12 @@
 package com.chachae.api.common.config.spring;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 /**
  * SpringMvc 配置
@@ -33,5 +36,25 @@ public class SpringMvcConfig implements WebMvcConfigurer {
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
         // 跨域时间
         .maxAge(1800);
+  }
+  /**
+   * 默认servlet支持
+   *
+   * @param configurer 返回配置
+   */
+  @Override
+  public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    // 启用默认servlet处理器，主要用于处理静态资源文件
+    configurer.enable();
+  }
+
+  /**
+   * 全局基于Jackson2的modelAndView返回配置bean
+   *
+   * @return MappingJackson2JsonView配置
+   */
+  @Bean("jsonView")
+  public MappingJackson2JsonView mappingJackson2JsonView() {
+    return new MappingJackson2JsonView();
   }
 }

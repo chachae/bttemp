@@ -36,16 +36,10 @@ public class ShiroLoginFilter extends FormAuthenticationFilter {
       // 如果检测到了options请求，返回自定义（允许PUT,DELETE请求），允许发送此请求的源继续下一个请求
       if (Constants.REQUEST_METHOD_OPTIONS.equals(
           ((HttpServletRequest) request).getMethod().toUpperCase())) {
-        // 设置响应状态，获取状态
         httpServletResponse.setHeader(
             "Status", String.valueOf(((HttpServletResponse) response).getStatus()));
-        // 设置服务器，用于伪装服务器
-        httpServletResponse.setHeader("Server", "nginx");
-        // 允许的请求
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "PUT,DELETE");
-        // 设置源请求编码
         httpServletResponse.setCharacterEncoding("UTF-8");
-        // 返回自定义响应头
         return super.isAccessAllowed(request, httpServletResponse, mappedValue);
       }
     }
@@ -54,7 +48,6 @@ public class ShiroLoginFilter extends FormAuthenticationFilter {
     httpServletResponse.setHeader(
         "Access-Control-Allow-Origin", ((HttpServletRequest) request).getHeader("Origin"));
     httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
-    httpServletResponse.setHeader("Server", "nginx");
     httpServletResponse.setHeader(
         "Status", String.valueOf(((HttpServletResponse) response).getStatus()));
     // 设置源请求编码
@@ -75,14 +68,11 @@ public class ShiroLoginFilter extends FormAuthenticationFilter {
       throws IOException {
     HttpServletResponse httpServletResponse = (HttpServletResponse) response;
     // 这里是个坑，如果不设置的接受的访问源，那么前端都会报跨域错误，因为这里还没到application-shiro.xml的配置里面
-    // 设置源请求头
     httpServletResponse.setHeader(
         "Access-Control-Allow-Origin", ((HttpServletRequest) request).getHeader("Origin"));
     httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
-    // 设置源请求编码
     httpServletResponse.setCharacterEncoding("UTF-8");
     httpServletResponse.setContentType("application/json");
-    // 前端的路由用code或者ret判断是否登录
     Dict dict = Dict.create().set("ret", false).set("msg", "请先登录").set("code", -1000);
     httpServletResponse.getWriter().write(JsonUtils.obj2String(dict));
     return false;

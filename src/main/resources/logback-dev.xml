@@ -10,7 +10,7 @@
         </encoder>
     </appender>
     <!--全局日志等级-->
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

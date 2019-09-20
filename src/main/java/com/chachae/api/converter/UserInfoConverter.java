@@ -1,7 +1,7 @@
-package com.chachae.api.mapstruct;
+package com.chachae.api.converter;
 
 import com.chachae.api.entity.UserInfo;
-import com.chachae.api.entity.vo.UserInfoVO;
+import com.chachae.api.entity.dto.UserInfoDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -29,10 +29,11 @@ public interface UserInfoConverter {
    */
   @Mappings({
     @Mapping(source = "user.stuId", target = "stuId"),
+    @Mapping(source = "user.password", target = "password"),
     @Mapping(source = "user.role", target = "role"),
-    @Mapping(target = "major", ignore = true),
+    @Mapping(target = "major", ignore = true)
   })
-  UserInfoVO toUserInfoVO(UserInfo userInfo);
+  UserInfoDTO toDto(UserInfo userInfo);
 
   /**
    * UserInfo列表转UserInfoVO列表
@@ -40,5 +41,5 @@ public interface UserInfoConverter {
    * @param userInfo UserInfo列表
    * @return UserInfoVO列表（返回的是目标对象，就是最终的结果对象）
    */
-  List<UserInfoVO> toUserInfoVoList(List<UserInfo> userInfo);
+  List<UserInfoDTO> toDtoList(List<UserInfo> userInfo);
 }
